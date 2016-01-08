@@ -1,9 +1,8 @@
 'use strict';
 
-
 const
 	co = require('co'),
-	Rest = require('../');
+	Rest = require('../').Client;
 
 let rest = new Rest('http://127.0.0.1:6712/api/1');
 
@@ -16,6 +15,7 @@ let api =
 co(function*()
 {
 	let result = yield api.users().login('1000+001E67070740-jj_xuzhou');
+	console.log('result:', result);
 })
 .catch(e => console.log(e.stack));
 
@@ -33,3 +33,4 @@ module.exports = config =>
 		user: rest.resource('/users', (member, collection) => ({login: collection.get('/login'), add: collection.post('/add'), update: collection.post('/update'), del: collection.post('/remove')}))
 	};
 };
+
